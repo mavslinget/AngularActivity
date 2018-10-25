@@ -1,0 +1,91 @@
+<p-dataTable #dt [value]="showList" [paginator]="true" [rows]="5"[pageLinks]="5" [responsive]="true" 
+[totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true">
+  <p-header>
+    <div class="addHeader">
+      <button type="button" pButton icon="fa fa-plus" (click)="addShow()"></button>
+      &nbsp;Add Show
+    </div>
+    <div class="searchHeader">
+      <input pInputText type="text" [(ngModel)]="searchShowName"
+        placeholder="Search Show Name"/>
+      <button pButton type="button" icon="fa fa-search"
+        (click)="searchShow()"></button>
+    </div>
+  </p-header>
+  <p-column>
+    <ng-template pTemplate type="body" let-Show="rowData">
+        <button type="button" pButton icon="fa fa-pencil" (click)="editShow(Show)"></button>
+        <button type="button" pButton icon="fa fa-trash" (click)="deleteShow(Show)"></button>
+    </ng-template>
+
+  </p-column>
+  <p-column field="showID" header="Show ID"></p-column>
+  <p-column field="title" header="Title"></p-column>
+  <p-column field="alternativeTitle" header="Alternative Title"></p-column>
+  <p-column field="genre" header="Genre"></p-column>
+  <p-column field="numberOfEpisode" header="Number of Episode"></p-column>
+  <p-column field="isComplete" header="Is Complete"></p-column>
+  <p-column field="description" header="Description"></p-column>
+  <p-column field="country" header="Country"></p-column>
+  <p-column field="yearStarted" header="Year Started"></p-column>
+  <p-column field="season" header="Season"></p-column>
+
+</p-dataTable>
+
+<form [formGroup]="showForm">
+  <p-dialog header="Show" [(visible)]="selectShow" *ngIf="selectShow">
+    <div class="ui-g-12 ui-md-12 ui-fluid">
+      <label>Title</label>
+      <input pInputText id="input-title" formControlName="title" 
+          placeholder="Title" [(ngModel)]="selectShow.title">
+      <br />
+      <label>Alternative Title</label>
+      <input pInputText id="input-alternativeTitle" formControlName="alternativeTitle" 
+          placeholder="Alternative Title" [(ngModel)]="selectShow.alternativeTitle">
+      <br />
+      
+      <label>Genre</label>
+      <input pInputText id="input-genre" formControlName="genre" 
+          placeholder="Genre" [(ngModel)]="selectShow.genre">
+      <br />
+      <label>Number of Episode</label><br />
+      <input pInputText id="input-numberOfEpisode" formControlName="numberOfEpisode" 
+          placeholder="Number of Episode" [(ngModel)]="selectShow.numberOfEpisode">
+      <br />
+      <label>Is Complete</label><br>
+      <p-radioButton value="True" label="True" formControlName="isComplete" 
+        [(ngModel)]="selectShow.isComplete" inputId="input-isComplete"></p-radioButton><br />
+      <p-radioButton value="False" label="False" formControlName="isComplete" 
+        [(ngModel)]="selectShow.isComplete" inputId="input-isComplete"></p-radioButton>
+      <br />
+      <label>Description</label>
+      <input pInputText id="input-description" formControlName="description" 
+          placeholder="Description" [(ngModel)]="selectShow.description">
+      <br />
+      <label>Country</label>
+      <input pInputText id="input-country" formControlName="country" 
+          placeholder="Enter Country" [(ngModel)]="selectShow.country">
+      <br />
+      <label>YearStarted</label>
+      <input pInputText id="input-yearStarted" formControlName="yearStarted" type="number"
+          placeholder="Year Started" [(ngModel)]="selectShow.yearStarted">
+      <br />
+      <label>Season</label>
+      <input pInputText id="input-season" formControlName="season" type="number"
+          placeholder="Season" [(ngModel)]="selectShow.season">
+      <br />
+      
+
+      <button pButton type="button" icon="fa fa-trash" label="Delete" 
+        (click)="okDelete()" *ngIf="isDeleteShow == true"></button>
+      <button pButton type="button" icon="fa fa-file" label="Save"
+        (click)="saveShow()" *ngIf="isDeleteShow == false" [disabled]="!showForm.valid"></button>
+      <button pButton type="button" icon="fa fa-ban" label="Cancel" 
+        (click)="cancelShow()"></button> 
+
+        
+      
+    </div>
+  </p-dialog>
+
+</form>

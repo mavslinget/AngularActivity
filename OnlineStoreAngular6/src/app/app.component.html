@@ -1,0 +1,32 @@
+<div class="ui-g">
+    <header class="ui-g-12">
+        <div id="top-logo">
+            <h2>
+                <i class="fa fa-book" aria-hidden="true"></i>&nbsp;Angular Sample</h2>
+        </div>
+        <!-- <div id="top-menu">
+            <ul>
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/login']">
+                        <span class='glyphicon glyphicon-log-in'></span> Login
+                    </a> |
+                    <a [routerLink]="['/register']">
+                        <span class='glyphicon glyphicon-log-in'></span> Register
+                    </a>
+                </li>
+                <li>
+                    <a (click)="this.auth.logout()" style="cursor: pointer;">
+                        <span class='glyphicon glyphicon-log-out'></span> Hi , Logout
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+    </header> 
+    <div class="ui-g-12 ui-md-2">
+        <p-menu [model]="menuItem"></p-menu>
+    </div>
+    <div class="ui-g-12 ui-md-10">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+

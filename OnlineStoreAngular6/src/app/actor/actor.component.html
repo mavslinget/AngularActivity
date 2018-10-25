@@ -1,0 +1,94 @@
+<p-dataTable #dt [value]="actorList" [paginator]="true" [rows]="5"[pageLinks]="5" [responsive]="true" 
+[totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true">
+  <p-header>
+    <div class="addHeader">
+      <button type="button" pButton icon="fa fa-plus" (click)="addActor()"></button>
+      &nbsp;Add Actor
+    </div>
+    <div class="searchHeader">
+      <input pInputText type="text" [(ngModel)]="searchActorName"
+        placeholder="Search First Name"/>
+      <button pButton type="button" icon="fa fa-search"
+        (click)="searchActor()"></button>
+    </div>
+  </p-header>
+  <p-column>
+    <ng-template pTemplate type="body" let-Actor="rowData">
+        <button type="button" pButton icon="fa fa-pencil" (click)="editActor(Actor)"></button>
+        <button type="button" pButton icon="fa fa-trash" (click)="deleteActor(Actor)"></button>
+    </ng-template>
+
+  </p-column>
+  <p-column field="actorID" header="Actor ID"></p-column>
+  <p-column field="firstName" header="First Name"></p-column>
+  <p-column field="lastName" header="Last Name"></p-column>
+  <p-column field="age" header="Age"></p-column>
+  <p-column field="gender" header="Gender"></p-column>
+  <p-column field="nationality" header="Nationality"></p-column>
+  <p-column field="country" header="Country"></p-column>
+  <p-column field="numberOfFilm" header="Number Of Film"></p-column>
+  <p-column field="socialMediaAccount" header="Social Media Account"></p-column>
+  <p-column field="isActive" header="Is Active"></p-column>
+
+</p-dataTable>
+
+<form [formGroup]="actorForm">
+  <p-dialog header="Actor" [(visible)]="selectActor" *ngIf="selectActor">
+    <div class="ui-g-12 ui-md-12 ui-fluid">
+      <label>First Name</label>
+      <input pInputText id="input-firstName" formControlName="firstName" 
+          placeholder="Enter First Name" [(ngModel)]="selectActor.firstName">
+      <br />
+      <label>Last Name</label>
+      <input pInputText id="input-lastName" formControlName="lastName" 
+          placeholder="Enter Last Name" [(ngModel)]="selectActor.lastName">
+      <br />
+      
+      <label>Age</label>
+      <input pInputText id="input-age" formControlName="age" type="number"
+          placeholder="Age" [(ngModel)]="selectActor.age">
+      <br />
+      <label>Gender</label><br />
+      <p-radioButton name="Male" value="Male" label="Male" formControlName="gender" 
+        [(ngModel)]="selectActor.gender" inputId="input-gender"></p-radioButton><br />
+      <p-radioButton name="Female" value="Female" label="Female" formControlName="gender" 
+        [(ngModel)]="selectActor.gender" inputId="input-gender"></p-radioButton><br />
+        <p-radioButton name="Others" value="Others" label="Others" formControlName="gender" 
+        [(ngModel)]="selectActor.gender" inputId="input-gender"></p-radioButton>
+      <br />
+      <label>Nationality</label>
+      <input pInputText id="input-nationality" formControlName="nationality" 
+          placeholder="Nationality" [(ngModel)]="selectActor.nationality">
+      <br />
+      <label>Number of Film</label>
+      <input pInputText id="input-numberOfFilm" formControlName="numberOfFilm" type="number"
+          placeholder="Number of Film" [(ngModel)]="selectActor.numberOfFilm">
+      <br />
+      <label>Country</label>
+      <input pInputText id="input-country" formControlName="country" 
+          placeholder="Enter Country" [(ngModel)]="selectActor.country">
+      <br />
+      <label>Social Media Account</label>
+      <input pInputText id="input-socialMediaAccount" formControlName="socialMediaAccount" 
+          placeholder="Social Media Account" [(ngModel)]="selectActor.socialMediaAccount">
+      <br />
+      <label>Is Active</label><br>
+      <p-radioButton value="True" label="True" formControlName="isActive" 
+        [(ngModel)]="selectActor.isActive" inputId="input-isActive"></p-radioButton><br />
+      <p-radioButton value="False" label="False" formControlName="isActive" 
+        [(ngModel)]="selectActor.isActive" inputId="input-isActive"></p-radioButton>
+      <br />
+
+      <button pButton type="button" icon="fa fa-trash" label="Delete" 
+        (click)="okDelete()" *ngIf="isDeleteActor == true"></button>
+      <button pButton type="button" icon="fa fa-file" label="Save"
+        (click)="saveActor()" *ngIf="isDeleteActor == false" [disabled]="!actorForm.valid"></button>
+      <button pButton type="button" icon="fa fa-ban" label="Cancel" 
+        (click)="cancelActor()"></button> 
+
+        
+      
+    </div>
+  </p-dialog>
+
+</form>

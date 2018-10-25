@@ -1,0 +1,58 @@
+<p-dataTable #dt [value]="nameList" [paginator]="true" [rows]="5"[pageLinks]="5" [responsive]="true" 
+[totalRecords]="totalRecords" (onLazyLoad)="paginate($event)" [lazy]="true">
+  <p-header>
+    <div class="addHeader">
+      <button type="button" pButton icon="fa fa-plus" (click)="addName()"></button>
+      &nbsp;Add Name
+    </div>
+    <div class="searchHeader">
+      <input pInputText type="text" [(ngModel)]="searchNameName"
+        placeholder="Search First Name"/>
+      <button pButton type="button" icon="fa fa-search"
+        (click)="searchName()"></button>
+    </div>
+  </p-header>
+  <p-column>
+    <ng-template pTemplate type="body" let-Name="rowData">
+        <button type="button" pButton icon="fa fa-pencil" (click)="editName(Name)"></button>
+        <button type="button" pButton icon="fa fa-trash" (click)="deleteName(Name)"></button>
+    </ng-template>
+
+  </p-column>
+  <p-column field="nameID" header="Name ID"></p-column>
+  <p-column field="firstName" header="First Name"></p-column>
+  <p-column field="middleName" header="Middle Name"></p-column>
+  <p-column field="lastName" header="Last Name"></p-column>
+
+</p-dataTable>
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper *ngIf="selectName">
+  <mat-step>
+    <form [formGroup]="nameFormGroup">
+      <ng-template matStepLabel>Fill out your basic information</ng-template>
+      <mat-form-field>
+        <input type="text" formControlName="firstName" [(ngModel)]="selectName.firstName" 
+          placeholder="First Name" matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" formControlName="middleName" [(ngModel)]="selectName.middleName" 
+          placeholder="Middle Name" matInput>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" formControlName="lastName" [(ngModel)]="selectName.lastName" 
+          placeholder="Last Name" matInput>
+      </mat-form-field>
+     
+
+      <div class="centerButtons">
+
+        <button mat-raised-button (click)="cancelName()">Cancel</button>
+        <button mat-raised-button (click)="saveName()">Save</button>
+        <button mat-raised-button (click)="okDelete()">Delete</button>
+      </div>
+
+    </form>
+  </mat-step>
+
+
+</mat-horizontal-stepper>
